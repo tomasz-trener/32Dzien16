@@ -1,0 +1,15 @@
+@model OperationModel
+@{
+    ViewData["Title"] = "New calculator";
+}
+
+<h1>New calculator (model + asp-for)</h1>
+<p>Widok zna typ modelu (<code>@@model OperationModel</code>), a <code>asp-for</code> generuje <code>id</code>, <code>name</code>, <code>value</code> i <code>type="number"</code> z właściwości.</p>
+
+<form method="post">
+    <input asp-for="Number1" />
+    <input asp-for="Number2" />
+    <input type="submit" value="Add" class="btn btn-primary" />
+</form>
+
+<p class="mt-3">Result: @Model.Result</p>

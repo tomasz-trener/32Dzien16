@@ -1,0 +1,28 @@
+@page
+@model P09ShopWebApp.Client.Pages.CalculatorModel
+@{
+    ViewData["Title"] = "Calculator";
+    // W widoku można pisać C#, ale większą logikę trzymamy w PageModelu (Calculator.cshtml.cs)
+}
+
+<h1>Calculator</h1>
+<p>Ręczne czytanie formularza: <code>Request.Form</code> + <code>int.TryParse</code>.</p>
+
+@* Etap A: method="get" – dane lecą w adresie (?Number1=2&Number2=3).
+   Etap B: method="post" – dane lecą w treści żądania, Tag Helper dodaje token antiforgery. *@
+<form method="post">
+    <label for="Number1">Number 1:</label>
+    <input id="Number1" name="Number1" value="@Model.Number1" />
+    <br />
+    <label for="Number2">Number 2:</label>
+    <input id="Number2" name="Number2" value="@Model.Number2" />
+    <br />
+    <input type="submit" value="Calculate sum" class="btn btn-primary mt-2" />
+
+    <p class="mt-3">Result: @Model.Result</p>
+
+    @if (Model.ErrorMessage != null)
+    {
+        <p class="text-danger">@Model.ErrorMessage</p>
+    }
+</form>

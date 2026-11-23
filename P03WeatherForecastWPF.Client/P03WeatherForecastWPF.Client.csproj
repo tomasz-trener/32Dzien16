@@ -1,0 +1,36 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+    <!-- Identyfikator pliku secrets.json z kluczem Azure Speech (Manage User Secrets) -->
+    <UserSecretsId>32dzien15-p03weatherforecastwpf-client</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- MVVM: ObservableObject, [ObservableProperty], [RelayCommand] -->
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.2" />
+    <!-- Generic Host: konfiguracja + logowanie + DI (zawiera Configuration.Json, Options, Http) -->
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.12" />
+    <!-- AddHttpClient<TInterface, TImpl> (IHttpClientFactory) -->
+    <PackageReference Include="Microsoft.Extensions.Http" Version="10.0.12" />
+    <!-- Azure AI Speech: rozpoznawanie mowy z mikrofonu -->
+    <PackageReference Include="Microsoft.CognitiveServices.Speech" Version="1.52.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Biblioteka wspólna: Product, ServiceResponse, IProductService, ProductHttpService -->
+    <ProjectReference Include="..\P06Shop.Shared\P06Shop.Shared.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Plik konfiguracyjny kopiowany obok .exe, żeby aplikacja mogła go odczytać -->
+    <None Update="appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,64 @@
+<Window x:Class="P03WeatherForecastWPF.Client.Views.ProductDetailsView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:P03WeatherForecastWPF.Client.ViewModels"
+        mc:Ignorable="d"
+        d:DataContext="{d:DesignInstance Type=vm:ProductDetailsViewModel}"
+        Title="{Binding WindowTitle}" Height="440" Width="520"
+        WindowStartupLocation="CenterOwner" ResizeMode="NoResize">
+
+    <!-- Grid z dwiema kolumnami: etykieta | pole. Auto = szerokość etykiety, * = reszta -->
+    <Grid Margin="12">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Label Grid.Row="0" Grid.Column="0" Content="Nazwa:" />
+        <TextBox Grid.Row="0" Grid.Column="1" Margin="4" Text="{Binding Product.Title, UpdateSourceTrigger=PropertyChanged}" />
+
+        <Label Grid.Row="1" Grid.Column="0" Content="Opis:" />
+        <DockPanel Grid.Row="1" Grid.Column="1">
+            <!-- Dyktowanie opisu: Azure AI Speech przez ISpeechService (dzień 15) -->
+            <Button DockPanel.Dock="Right" Width="90" Margin="4" VerticalAlignment="Top"
+                    Content="🎤 Dyktuj" Command="{Binding DictateDescriptionCommand}" />
+            <TextBox Margin="4" Height="70" AcceptsReturn="True" TextWrapping="Wrap"
+                     Text="{Binding Product.Description, UpdateSourceTrigger=PropertyChanged}" />
+        </DockPanel>
+
+        <Label Grid.Row="2" Grid.Column="0" Content="Kod kreskowy:" />
+        <TextBox Grid.Row="2" Grid.Column="1" Margin="4" MaxLength="12" Text="{Binding Product.Barcode, UpdateSourceTrigger=PropertyChanged}" />
+
+        <Label Grid.Row="3" Grid.Column="0" Content="Cena (zł):" />
+        <!-- StringFormat=F2: dwa miejsca po przecinku. Binding decimal↔tekst używa kultury ustawionej w App.xaml.cs (OverrideMetadata), czyli na polskim Windows wpisujemy przecinek -->
+        <TextBox Grid.Row="3" Grid.Column="1" Margin="4" Text="{Binding Product.Price, StringFormat=F2, UpdateSourceTrigger=PropertyChanged}" />
+
+        <Label Grid.Row="4" Grid.Column="0" Content="Data premiery:" />
+        <DatePicker Grid.Row="4" Grid.Column="1" Margin="4" SelectedDate="{Binding Product.ReleaseDate}" />
+
+        <!-- Błędy walidacji (z atrybutów klasy Product) i stan nasłuchiwania -->
+        <StackPanel Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2">
+            <TextBlock Margin="4" Foreground="DarkGreen" Text="Słucham… mów teraz."
+                       Visibility="{Binding IsListening, Converter={StaticResource BoolToVisibility}}" />
+            <TextBlock Margin="4" Foreground="DarkRed" TextWrapping="Wrap"
+                       Text="{Binding ValidationErrors}"
+                       Visibility="{Binding ValidationErrors, Converter={StaticResource NullToVisibility}}" />
+        </StackPanel>
+
+        <StackPanel Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Content="Zapisz" Command="{Binding SaveCommand}" Width="100" Margin="4" IsDefault="True" />
+            <Button Content="Anuluj" Command="{Binding CancelCommand}" Width="100" Margin="4" IsCancel="True" />
+        </StackPanel>
+    </Grid>
+</Window>

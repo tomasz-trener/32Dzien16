@@ -1,0 +1,31 @@
+@page
+@model P09ShopWebApp.Client.Pages.ProductsListModel
+@{
+    ViewData["Title"] = "Products List";
+}
+
+<h1>Products List</h1>
+<p>Lista napisana ręcznie: <code>ShopContext</code> wstrzyknięty do PageModelu, pętla <code>@@foreach</code> w widoku. Produktów: @Model.Products.Count</p>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Price</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Products)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Title</td>
+                <td>@item.Description</td>
+                @* DisplayFor formatuje wartość według typu i atrybutów (np. [DisplayFormat]) *@
+                <td>@Html.DisplayFor(x => item.Price)</td>
+            </tr>
+        }
+    </tbody>
+</table>

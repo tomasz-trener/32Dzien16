@@ -1,0 +1,46 @@
+@P05Shop.API_HostAddress = https://localhost:7127
+
+### Lista prognoz (szablon)
+GET {{P05Shop.API_HostAddress}}/api/weatherforecast
+Accept: application/json
+
+### Parametr z trasy
+GET {{P05Shop.API_HostAddress}}/api/weatherforecast/3
+Accept: application/json
+
+### Parametry z query stringa
+GET {{P05Shop.API_HostAddress}}/api/weatherforecast/search?days=4&minTemperature=10
+Accept: application/json
+
+### Query string zbindowany do obiektu
+GET {{P05Shop.API_HostAddress}}/api/weatherforecast/filter?name=Warszawa&country=PL
+
+### POST z JSON w treści – oczekujemy 201 Created i nagłówka Location
+POST {{P05Shop.API_HostAddress}}/api/weatherforecast/cities
+Content-Type: application/json
+
+{
+  "name": "Kraków",
+  "country": "PL"
+}
+
+### POST bez nazwy – oczekujemy 400 Bad Request
+POST {{P05Shop.API_HostAddress}}/api/weatherforecast/cities
+Content-Type: application/json
+
+{
+  "name": "",
+  "country": "PL"
+}
+
+### Produkty – lista (ServiceResponse z 100 produktami)
+GET {{P05Shop.API_HostAddress}}/api/products
+Accept: application/json
+
+### Produkt o Id 1
+GET {{P05Shop.API_HostAddress}}/api/products/1
+Accept: application/json
+
+### Produkt, którego nie ma – 404 z komunikatem
+GET {{P05Shop.API_HostAddress}}/api/products/9999
+Accept: application/json

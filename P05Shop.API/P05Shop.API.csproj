@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Opis API w formacie OpenAPI (szablon .NET 10) -->
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.12" />
+    <!-- Interaktywna dokumentacja pod /scalar (zamiast Swagger UI, którego nie ma w .NET 9+) -->
+    <PackageReference Include="Scalar.AspNetCore" Version="2.17.14" />
+    <!-- EF Core: dostawca SQL Server (zawiera Microsoft.EntityFrameworkCore) -->
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="10.0.12" />
+    <!-- EF Core: narzędzia projektowe potrzebne do migracji (dotnet ef) -->
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.12">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\P06Shop.Shared\P06Shop.Shared.csproj" />
+    <ProjectReference Include="..\P07Shop.DataSeeder\P07Shop.DataSeeder.csproj" />
+  </ItemGroup>
+
+</Project>

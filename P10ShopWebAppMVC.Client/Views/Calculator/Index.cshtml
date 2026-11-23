@@ -1,0 +1,16 @@
+@{
+    ViewData["Title"] = "Calculator";
+}
+
+<h1>Calculator (ViewBag)</h1>
+<p>Akcja <code>Add</code> czyta <code>IFormCollection</code> i przekazuje wynik przez <code>ViewBag</code>.</p>
+
+@* action="/Calculator/Add": kontroler Calculator, akcja Add – adres wynika z trasy w Program.cs *@
+<form method="post" action="/Calculator/Add">
+    <input type="text" name="number1" value="@ViewBag.Number1" />
+    <input type="text" name="number2" value="@ViewBag.Number2" />
+    <input type="submit" value="Add" class="btn btn-primary" />
+</form>
+
+<p class="mt-3">Result: @ViewBag.MyResult</p>
+<p class="text-danger">@ViewBag.Error</p>
